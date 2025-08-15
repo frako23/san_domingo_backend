@@ -3,3 +3,4 @@ sqlmodel==0.0.24
 psycong2-binary==2.9.10
 python-jose[cryptography]
 httpx
+alembic
