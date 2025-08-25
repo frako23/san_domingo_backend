@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends
 from sqlmodel import Session, SQLModel
 from models import CoffeeOrder
 from datetime import datetime
-from crud import create_user
+from crud import create_user, get_users
 from typing import Annotated
 from database import get_session
 from pydantic import BaseModel
@@ -55,3 +55,11 @@ def create_user_route(user_data: UserCreate, session: sessionDep):
         cafes_restantes=user_data.cafes_restantes
     )
     return user
+
+@router.get("/get_users/")
+def get_users_route( session: sessionDep):
+    user = get_users(
+        session,
+    )
+    return user
+

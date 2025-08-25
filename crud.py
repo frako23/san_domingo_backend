@@ -21,3 +21,8 @@ def create_user(Session, name: str, lastname: str, email: str, cafes_restantes: 
     Session.commit()
     Session.refresh(user)
     return user
+
+def get_users(Session):
+    from models import AtenasUser  # Import local para evitar ciclos
+    users = Session.query(AtenasUser).all()
+    return users
