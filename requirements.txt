@@ -4,3 +4,4 @@ psycong2-binary==2.9.10
 python-jose[cryptography]
 httpx
 alembic
+python-multipart
