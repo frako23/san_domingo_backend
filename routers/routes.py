@@ -1,11 +1,13 @@
 from fastapi import APIRouter, Depends
 from sqlmodel import Session, SQLModel
-from models import CoffeeOrder
+from models import CoffeeOrder, UserRead
 from datetime import datetime
 from crud import create_user, get_users
 from typing import Annotated
 from database import get_session
 from pydantic import BaseModel
+from auth.dependencies import get_current_user
+from models import AtenasUser as User, CoffeeOrder
 
 sessionDep = Annotated[Session, Depends(get_session)]
 
@@ -63,3 +65,15 @@ def get_users_route( session: sessionDep):
     )
     return user
 
+@router.get("/get_current_user", response_model=UserRead)
+def read_current_user(current_user: Annotated[User, Depends(get_current_user)]):
+    """
+    Obtiene la información del usuario actualmente autenticado usando su JWT.
+    
+    Cómo funciona:
+    1. FastAPI ve que este endpoint `Depends` on `get_current_user`.
+    2. Ejecuta esa dependencia, la cual valida el token y busca al usuario en la BD.
+    3. Si todo es correcto, inyecta el objeto `User` en el parámetro `current_user`.
+    4. Si algo falla (token inválido, usuario no existe), la dependencia lanzará un error HTTP.
+    """
+    return current_user

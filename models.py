@@ -52,3 +52,14 @@ class CoffeeOrder(SQLModel, table=True):
     # Relaciones de "vuelta"
     user: AtenasUser = Relationship(back_populates="orders")
     coffee_type: CoffeeType = Relationship(back_populates="orders")
+
+class UserRead(SQLModel):
+    id: int
+    name: str
+    email: str
+    cafes_restantes: int
+    fecha_de_creacion: datetime
+    fecha_de_modificacion: Optional[datetime]
+
+    class Config:
+        from_attributes = True
