@@ -24,6 +24,7 @@ class AtenasUser(SQLModel, table=True):
     name: str
     lastname: str
     email: str = Field(unique=True, index=True)
+    role: str = Field(default="user", index=True)
     cafes_restantes: int = 4
     fecha_de_creacion: datetime = Field(
         default_factory=lambda: datetime.now(timezone.utc), 

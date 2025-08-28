@@ -16,6 +16,7 @@ def create_user(Session, name: str, lastname: str, email: str, cafes_restantes: 
         name=name,
         lastname=lastname,
         email=email,
+        role="user",
         cafes_restantes=cafes_restantes
     )
     Session.add(user)
